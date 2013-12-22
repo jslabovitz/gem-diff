@@ -1,5 +1,5 @@
 require 'rubygems/command'
-# require 'rubygems_analyzer'
+require 'pp'
 
 class Gem::Commands::DiffCommand < Gem::Command
 
@@ -8,7 +8,29 @@ class Gem::Commands::DiffCommand < Gem::Command
   end
 
   def execute
-    say "[diff]"
+    if options[:args]
+      gems = options[:args].map { |n| Gem::Specification.find_all_by_name(n) }.flatten
+    else
+      gems = Gem::Specification.all
+    end
+    tree = {}
+    gems.each do |gem|
+      unless gem.default_gem?
+        tree[gem.name] ||= []
+        tree[gem.name] << gem
+      end
+    end
+    tree.each do |name, versions|
+      if versions.length < 2
+        next
+      elsif versions.length > 2
+        warn  "#{name}: can't compare with more than two versions"
+      else
+        versions = versions.sort_by(&:version)[-2..1]
+        paths = versions.map(&:gem_dir)
+        system "diff -duawrN -x '*.o' #{paths.join(' ')} | #{ENV['PAGER']}"
+      end
+    end
   end
 
 end
