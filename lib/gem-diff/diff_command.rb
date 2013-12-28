@@ -8,10 +8,10 @@ class Gem::Commands::DiffCommand < Gem::Command
   end
 
   def execute
-    if options[:args]
-      gems = options[:args].map { |n| Gem::Specification.find_all_by_name(n) }.flatten
+    if options[:args].empty?
+      gems = Gem::Specification
     else
-      gems = Gem::Specification.all
+      gems = options[:args].map { |n| Gem::Specification.find_all_by_name(n) }.flatten
     end
     tree = {}
     gems.each do |gem|
