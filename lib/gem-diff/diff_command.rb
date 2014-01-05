@@ -20,16 +20,11 @@ class Gem::Commands::DiffCommand < Gem::Command
         tree[gem.name] << gem
       end
     end
-    tree.each do |name, versions|
-      if versions.length < 2
-        next
-      elsif versions.length > 2
-        warn  "#{name}: can't compare with more than two versions"
-      else
-        versions = versions.sort_by(&:version)[-2..1]
-        paths = versions.map(&:gem_dir)
-        system "diff -duawrN -x '*.o' #{paths.join(' ')} | #{ENV['PAGER']}"
-      end
+    tree.reject { |n, v| v.length < 2 }.each do |name, versions|
+      versions.sort_by!(&:version)
+      warn "#{name} has more than one version -- only comparing last two" if versions.length > 2
+      paths = versions[-2..-1].map(&:gem_dir)
+      system "diff -duawrN -x '*.o' #{paths.join(' ')} | #{ENV['PAGER']}"
     end
   end
 
