@@ -24,7 +24,7 @@ class Gem::Commands::DiffCommand < Gem::Command
       versions.sort_by!(&:version)
       warn "#{name} has more than one version -- only comparing last two" if versions.length > 2
       paths = versions[-2..-1].map(&:gem_dir)
-      system "diff -duawrN -x '*.o' #{paths.join(' ')} | cdiff | #{ENV['PAGER']}"
+      system "git diff --word-diff=color #{paths.join(' ')}"
     end
   end
 
