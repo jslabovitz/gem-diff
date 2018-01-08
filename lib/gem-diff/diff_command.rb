@@ -1,7 +1,4 @@
-require 'rubygems/command'
-require 'pp'
-
-class Gem::Commands::DiffCommand < Gem::Command
+class DiffCommand < Gem::Command
 
   def initialize
     super 'diff', %q{Show differences between versions of gem}

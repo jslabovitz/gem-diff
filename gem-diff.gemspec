@@ -1,25 +1,21 @@
 #encoding: utf-8
 
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require_relative 'lib/gem-diff/version'
 
-Gem::Specification.new do |gem|
-  gem.name          = 'gem-diff'
-  gem.version       = '0.1'
-  gem.authors       = 'John Labovitz'
-  gem.email         = 'johnl@johnlabovitz.com'
-  gem.summary       = %q{Show differences between gems}
-  gem.description   = %q{A Ruby gem which acts as a 'gem' plugin to show differences between gems.}
-  # gem.homepage      = 'https://github.com/jslabovitz/gem-diff.git'
+Gem::Specification.new do |s|
+  s.name          = 'gem-diff'
+  s.version       = DiffCommand::VERSION
+  s.summary       = %q{Show differences between gems}
+  s.description   = %q{A Ruby gem which acts as a 'gem' plugin to show differences between gems.}
+  s.author        = 'John Labovitz'
+  s.email         = 'johnl@johnlabovitz.com'
+  s.homepage      = 'https://github.com/jslabovitz/gem-diff.git'
+  s.license       = 'MIT'
+  s.files         = `git ls-files`.split($/)
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
+  s.require_path  = 'lib'
 
-  gem.files         = `git ls-files`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = ['lib']
-
-  # for 'cdiff' tool
-  gem.add_dependency 'term-ansicolor'
-
-  gem.add_development_dependency 'bundler'
-  gem.add_development_dependency 'rake'
+  s.add_development_dependency 'rake', '~> 12.3'
+  s.add_development_dependency 'rubygems-tasks', '~> 0.2'
 end
