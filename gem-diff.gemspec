@@ -1,5 +1,6 @@
 #encoding: utf-8
 
+require 'rubygems/command'
 require_relative 'lib/gem-diff/version'
 
 Gem::Specification.new do |s|
