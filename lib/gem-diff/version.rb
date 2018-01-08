@@ -1,4 +1,4 @@
-class DiffCommand
+class Gem::Commands::DiffCommand
 
   VERSION = '0.1'
 

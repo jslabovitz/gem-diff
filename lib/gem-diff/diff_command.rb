@@ -1,4 +1,4 @@
-class DiffCommand < Gem::Command
+class Gem::Commands::DiffCommand < Gem::Command
 
   def initialize
     super 'diff', %q{Show differences between versions of gem}

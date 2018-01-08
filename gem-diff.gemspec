@@ -4,7 +4,7 @@ require_relative 'lib/gem-diff/version'
 
 Gem::Specification.new do |s|
   s.name          = 'gem-diff'
-  s.version       = DiffCommand::VERSION
+  s.version       = Gem::Commands::DiffCommand::VERSION
   s.summary       = %q{Show differences between gems}
   s.description   = %q{A Ruby gem which acts as a 'gem' plugin to show differences between gems.}
   s.author        = 'John Labovitz'
