@@ -1,5 +1,5 @@
-class Gem::Commands::DiffCommand
+class Gem::Commands::DiffCommand < Gem::Command
 
-  VERSION = '0.2'
+  VERSION = '0.3'
 
 end
