@@ -1,3 +1,5 @@
+require 'rubygems/command'
+
 class Gem::Commands::DiffCommand < Gem::Command
 
   def initialize
